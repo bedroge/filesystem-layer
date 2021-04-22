@@ -27,7 +27,8 @@ jobs:
           #registry: docker.pkg.github.com
           #tags: bedroge/filesystem-layer/eessi-client-pilot:centos7
           tags: ghcr.io/bedroge/eessi-client-pilot:centos7
-          file: containers/Dockerfile.EESSI-client-pilot-centos7-x86_64
+          file: containers/Dockerfile.EESSI-client-pilot-centos7
+          platforms: [linux/amd64,linux/arm64]
           push: true
           #outputs: type=registry
           #tag_with_ref: true
