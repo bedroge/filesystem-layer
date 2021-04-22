@@ -25,7 +25,8 @@ jobs:
           #username: ${{ github.actor }}
           #password: ${{ secrets.GITHUB_TOKEN }}
           #registry: docker.pkg.github.com
-          tags: bedroge/filesystem-layer/eessi-client-pilot:centos7
+          #tags: bedroge/filesystem-layer/eessi-client-pilot:centos7
+          tags: ghcr.io/bedroge/eessi-client-pilot:centos7
           file: containers/Dockerfile.EESSI-client-pilot-centos7-x86_64
           push: true
           #outputs: type=registry
