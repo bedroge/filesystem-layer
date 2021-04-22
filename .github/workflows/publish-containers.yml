@@ -10,6 +10,11 @@ jobs:
     permissions:
       packages: write
       contents: read
+    strategy:
+      matrix:
+        os: linux
+        arch: [amd64, arm64, ppc64le]
+
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -26,13 +31,9 @@ jobs:
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v2
         with:
-          #username: ${{ github.actor }}
-          #password: ${{ secrets.GITHUB_TOKEN }}
-          #registry: docker.pkg.github.com
-          #tags: bedroge/filesystem-layer/eessi-client-pilot:centos7
-          tags: ghcr.io/bedroge/eessi-client-pilot:centos7
-          file: containers/Dockerfile.EESSI-client-pilot-centos7
-          platforms: linux/amd64,linux/arm64
+          tags: ghcr.io/bedroge/client-pilot:centos7-$(uname -m)
+          file: containers/Dockerfile.EESSI-client-pilot-centos7-${{ matrix.arch }}
+          platforms: ${{ matrix.os }}/${{ matrix.arch }}
           push: true
           #outputs: type=registry
           #tag_with_ref: true
