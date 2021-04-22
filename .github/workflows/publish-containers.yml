@@ -38,7 +38,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           tags: ghcr.io/bedroge/client-pilot:centos7-${{ steps.arch-tag.arch }}
-          file: containers/Dockerfile.EESSI-client-pilot-centos7-${{ matrix.arch }}
+          file: containers/Dockerfile.EESSI-client-pilot-centos7-${{ steps.arch-tag.arch }}
           platforms: ${{ matrix.os }}/${{ matrix.arch }}
           push: true
           #outputs: type=registry
