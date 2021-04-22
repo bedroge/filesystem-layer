@@ -16,9 +16,9 @@ jobs:
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v2
         with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          #username: ${{ github.actor }}
+          #password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          tags: eessi/client-pilot:centos7
+          tags: bedroge/filesystem-layer/eessi-client-pilot:centos7
           file: containers/Dockerfile.EESSI-client-pilot-centos7-x86_64
           #tag_with_ref: true
