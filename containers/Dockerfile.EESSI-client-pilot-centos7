@@ -6,7 +6,7 @@ FROM centos:7
 COPY ./containers/install-cvmfs.sh /install-cvmfs.sh
 RUN sh /install-cvmfs.sh && rm /install-cvmfs.sh
 
-RUN yum install -y https://github.com/EESSI/filesystem-layer/releases/download/v0.2.3/cvmfs-config-eessi-0.2.3-1.noarch.rpm
+RUN yum install -y https://github.com/EESSI/filesystem-layer/releases/download/latest/cvmfs-config-eessi-latest.noarch.rpm
 
 RUN echo 'CVMFS_QUOTA_LIMIT=10000' > /etc/cvmfs/default.local \
   && echo 'CVMFS_HTTP_PROXY="DIRECT"' >> /etc/cvmfs/default.local
