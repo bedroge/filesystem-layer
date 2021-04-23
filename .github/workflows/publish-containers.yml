@@ -28,17 +28,11 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Set architecture name for tag
-        id: arch-tag
-        run: |
-          declare -A arch2tag
-          arch2tag=( ["amd64"]="x86_64" ["arm64"]="aarch64" ["ppc64le"]="ppc64le")
-          echo "::set-output name=arch::${arch2tag[${{ matrix.arch }}]}"
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v2
         with:
-          tags: ghcr.io/bedroge/client-pilot:centos7-${{ steps.arch-tag.outputs.arch }}
-          file: containers/Dockerfile.EESSI-client-pilot-centos7-${{ steps.arch-tag.outputs.arch }}
+          tags: ghcr.io/bedroge/client-pilot:centos7
+          file: containers/Dockerfile.EESSI-client-pilot-centos7
           platforms: ${{ matrix.os }}/${{ matrix.arch }}
           push: true
           #outputs: type=registry
