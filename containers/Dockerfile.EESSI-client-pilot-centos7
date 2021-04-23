@@ -4,8 +4,7 @@ ARG cvmfsversion=2.8.1
 #RUN yum install -y http://cvmrepo.web.cern.ch/cvmrepo/yum/cvmfs-release-latest.noarch.rpm \
 # && yum install -y cvmfs cvmfs-config-default cvmfs-fuse3 sudo vim openssh-clients \
 
-COPY ./containers/RPMS/ /tmp/RPMS/
-
+COPY ./containers/RPMS/*/* /tmp
 COPY ./containers/install-cvmfs.sh /install-cvmfs.sh
 
 RUN sh /install-cvmfs.sh ${cvmfsversion} && rm /install-cvmfs.sh
@@ -15,7 +14,7 @@ RUN yum install -y https://github.com/EESSI/filesystem-layer/releases/download/l
 RUN echo 'CVMFS_QUOTA_LIMIT=10000' > /etc/cvmfs/default.local \
   && echo 'CVMFS_HTTP_PROXY="DIRECT"' >> /etc/cvmfs/default.local
 
-RUN rm -rf /tmp/RPMS
+RUN rm -rf /tmp/*.rpm
 
 RUN mkdir -p /cvmfs/{cvmfs-config.eessi-hpc.org,pilot.eessi-hpc.org}
 

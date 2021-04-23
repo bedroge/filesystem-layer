@@ -25,7 +25,7 @@ jobs:
       - name: Make RPMS directory
         run: mkdir ./containers/RPMS
       - name: Build CVMFS RPM for ppc64le
-        run: DOCKER_BUILDKIT=1 docker build --platform=${{ matrix.os }}/${{ matrix.arch }} -f containers/Dockerfile.EESSI-client-pilot-centos7-ppc64le.build --output type=local,dest=./RPMS .
+        run: DOCKER_BUILDKIT=1 docker build --platform=${{ matrix.os }}/${{ matrix.arch }} -f containers/Dockerfile.EESSI-client-pilot-centos7-ppc64le.build --output type=local,dest=./container/RPMS .
         if: ${{ matrix.arch == 'ppc64le' }}
       - name: debug
         run: ls -lR
