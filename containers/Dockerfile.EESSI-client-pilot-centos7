@@ -1,6 +1,6 @@
 FROM centos:7 AS prepare-rpm
 COPY ./containers/build-or-download-cvmfs-rpm.sh /build-or-download-cvmfs-rpm.sh
-RUN /build-or-download-cvmfs-rpm.sh
+RUN sh /build-or-download-cvmfs-rpm.sh
 
 FROM centos:7
 ARG cvmfsversion=2.8.1
