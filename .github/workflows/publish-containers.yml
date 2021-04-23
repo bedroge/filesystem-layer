@@ -23,7 +23,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Build CVMFS RPM for ppc64le
-        run: DOCKER_BUILDKIT=1 docker build --platform=${{ matrix.os }}/${{ matrix.arch }} -f containers/Dockerfile.EESSI-client-pilot-centos7-ppc64le.build --output type=local,dest=. .
+        run: |
+          mkdir RPMS
+          DOCKER_BUILDKIT=1 docker build --platform=${{ matrix.os }}/${{ matrix.arch }} -f containers/Dockerfile.EESSI-client-pilot-centos7-ppc64le.build --output type=local,dest=./RPMS .
         if: ${{ matrix.arch == 'ppc64le' }}
       - name: debug
         run: ls -lR
