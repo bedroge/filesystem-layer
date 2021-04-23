@@ -1,0 +1,19 @@
+#FROM docker.io/ppc64le/centos:7
+FROM docker.io/centos:7 AS build
+ARG cvmfsversion=2.8.0
+
+RUN yum install -y epel-release
+RUN yum install -y wget rpm-build checkpolicy cmake fuse-devel fuse3-devel gcc gcc-c++ golang libattr-devel libcap-devel libuuid-devel openssl-devel python2-devel python2-setuptools selinux-policy-devel valgrind-devel hardlink selinux-policy-targeted
+
+# build CernVM-FS RPM from source
+RUN wget https://ecsft.cern.ch/dist/cvmfs/cvmfs-2.8.1/cvmfs-2.8.1-1.el7.src.rpm && \
+    rpmbuild --rebuild cvmfs-2.8.1-1.el7.src.rpm
+
+#COPY /root/rpmbuild/RPMS/ppc64le/cvmfs-2.8.1-1.el7.ppc64le.rpm .
+#COPY /root/rpmbuild/RPMS/ppc64le/cvmfs-fuse3-2.8.1-1.el7.ppc64le.rpm .
+
+#COPY /root/rpmbuild/RPMS/x86_64/cvmfs-2.8.1-1.el7.x86_64.rpm .
+#COPY /root/rpmbuild/RPMS/x86_64/cvmfs-fuse3-2.8.1-1.el7.x86_64.rpm .
+
+FROM scratch AS export
+COPY --from=build /root/rpmbuild/RPMS /
