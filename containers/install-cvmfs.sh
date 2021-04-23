@@ -14,12 +14,12 @@ then
     cd build && \
     cmake .. -DBUILD_SERVER=no -DBUILD_SERVER_DEBUG=no -DDBUILD_SHRINKWRAP=no && \
     make -j $(nproc) && \
-    sudo make install && \
-    cd / && \
+    make install && \
+    cd ../.. && \
     rm -r cvmfs*${cvmfsversion}*
 
     yum remove -y fuse && yum install -y fuse3
 else
     yum install -y http://cvmrepo.web.cern.ch/cvmrepo/yum/cvmfs-release-latest.noarch.rpm \
-    && yum install -y cvmfs cvmfs-config-default cvmfs-fuse3 sudo vim openssh-clients
+    && yum install -y cvmfs-${cvmfsversion} cvmfs-config-default cvmfs-fuse3 sudo vim openssh-clients
 fi
