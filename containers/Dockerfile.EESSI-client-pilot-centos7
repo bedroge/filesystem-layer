@@ -3,7 +3,7 @@ FROM centos:7
 #RUN yum install -y http://cvmrepo.web.cern.ch/cvmrepo/yum/cvmfs-release-latest.noarch.rpm \
 # && yum install -y cvmfs cvmfs-config-default cvmfs-fuse3 sudo vim openssh-clients \
 
-COPY ./install-cvmfs.sh /
+COPY ./containers/install-cvmfs.sh /install-cvmfs.sh
 RUN sh /install-cvmfs.sh && rm /install-cvmfs.sh
 
 RUN yum install -y https://github.com/EESSI/filesystem-layer/releases/download/v0.2.3/cvmfs-config-eessi-0.2.3-1.noarch.rpm
