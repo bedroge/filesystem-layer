@@ -5,6 +5,7 @@ ARG cvmfsversion=2.8.1
 # && yum install -y cvmfs cvmfs-config-default cvmfs-fuse3 sudo vim openssh-clients \
 
 COPY ./containers/install-cvmfs.sh /install-cvmfs.sh
+RUN mkdir /RPMS
 COPY ./RPMS /RPMS
 RUN sh /install-cvmfs.sh ${cvmfsversion} && rm /install-cvmfs.sh
 
