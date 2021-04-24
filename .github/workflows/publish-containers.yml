@@ -22,13 +22,6 @@ jobs:
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      - name: Make RPMS directory
-        run: mkdir ./containers/RPMS
-      - name: Build CVMFS RPM for ppc64le
-        run: DOCKER_BUILDKIT=1 docker build --platform=${{ matrix.os }}/${{ matrix.arch }} -f containers/Dockerfile.EESSI-client-pilot-centos7-ppc64le.build --output type=local,dest=./container/RPMS .
-        if: ${{ matrix.arch == 'ppc64le' }}
-      - name: debug
-        run: ls -lR
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1 
         with:
