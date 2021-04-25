@@ -8,5 +8,5 @@ then
                    http://ecsft.cern.ch/dist/cvmfs/cvmfs-config/cvmfs-config-default-latest.noarch.rpm
 else
     yum install -y http://cvmrepo.web.cern.ch/cvmrepo/yum/cvmfs-release-latest.noarch.rpm \
-    && yum install -y cvmfs-${cvmfsversion} cvmfs-config-default cvmfs-fuse3 sudo vim openssh-clients
+    && yum install -y cvmfs-${cvmfsversion} cvmfs-config-default cvmfs-fuse3
 fi
