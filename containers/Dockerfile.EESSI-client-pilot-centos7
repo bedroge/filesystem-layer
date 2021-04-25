@@ -8,8 +8,10 @@ ARG cvmfsversion=2.8.1
 #RUN yum install -y http://cvmrepo.web.cern.ch/cvmrepo/yum/cvmfs-release-latest.noarch.rpm \
 # && yum install -y cvmfs cvmfs-config-default cvmfs-fuse3 sudo vim openssh-clients \
 
-COPY --from=prepare-rpm /root/rpmbuild/RPMS/*/* /tmp
+COPY --from=prepare-rpm /root/rpmbuild/RPMS /root/rpmbuild/RPMS
 COPY ./containers/install-cvmfs.sh /install-cvmfs.sh
+
+RUN ls -lR /root/rpmbuild
 
 RUN sh /install-cvmfs.sh ${cvmfsversion} && rm /install-cvmfs.sh
 
