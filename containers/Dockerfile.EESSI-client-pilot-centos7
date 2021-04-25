@@ -17,6 +17,7 @@ RUN ls -lR /root/rpmbuild
 
 RUN sh /install-cvmfs.sh ${cvmfsversion} && rm /install-cvmfs.sh
 
+RUN yum install -y sudo vim openssh-clients
 RUN yum install -y https://github.com/EESSI/filesystem-layer/releases/download/latest/cvmfs-config-eessi-latest.noarch.rpm
 
 RUN echo 'CVMFS_QUOTA_LIMIT=10000' > /etc/cvmfs/default.local \
