@@ -10,10 +10,6 @@ jobs:
     permissions:
       packages: write
       contents: read
-    strategy:
-      matrix:
-        os: [linux]
-        arch: [amd64, arm64, ppc64le]
 
     steps:
       - name: Check out the repo
@@ -33,7 +29,7 @@ jobs:
         with:
           tags: ghcr.io/bedroge/client-pilot:centos7
           file: containers/Dockerfile.EESSI-client-pilot-centos7
-          platforms: ${{ matrix.os }}/${{ matrix.arch }}
+          platforms: linux/amd64, linux/arm64, linux/ppc64le
           push: true
           #outputs: type=registry
           #tag_with_ref: true
