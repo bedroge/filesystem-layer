@@ -75,3 +75,4 @@ jobs:
             --amend ghcr.io/${REPOSITORY_OWNER}/client-pilot:centos7-amd64 \
             --amend ghcr.io/${REPOSITORY_OWNER}/client-pilot:centos7-arm64 \
             --amend ghcr.io/${REPOSITORY_OWNER}/client-pilot:centos7-ppc64le
+          docker manifest push ghcr.io/${REPOSITORY_OWNER}/client-pilot:centos7
