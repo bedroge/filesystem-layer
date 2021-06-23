@@ -68,7 +68,7 @@ jobs:
     steps:
       - name: Run docker manifest
         run: |
-          REPOSITORY_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')
+          export REPOSITORY_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')
           docker manifest create \
             ghcr.io/${{ env.REPOSITORY_OWNER }}/client-pilot:centos7 \
             --amend ghcr.io/${{ env.REPOSITORY_OWNER }}/client-pilot:centos7-amd64 \
