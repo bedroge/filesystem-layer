@@ -10,6 +10,9 @@ jobs:
     permissions:
       packages: write
       contents: read
+    strategy:
+      matrix:
+        platform: [amd64, arm64, ppc64le]
 
     steps:
       - name: Check out the repo
@@ -41,10 +44,9 @@ jobs:
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v2
         with:
-          tags: ghcr.io/${{ env.REPOSITORY_OWNER }}/client-pilot:centos7
+          tags: ghcr.io/${{ env.REPOSITORY_OWNER }}/client-pilot:centos7-${{ matrix.platform }}
           file: containers/Dockerfile.EESSI-client-pilot-centos7
-          platforms: linux/amd64, linux/arm64 
-          #, linux/ppc64le
+          platforms: ${{ matrix.platform }}
           push: true
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
@@ -55,3 +57,20 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+  create_manifest:
+    name: Create the Docker manifest
+    needs: push_to_registry
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Run docker manifest
+        run: |
+          REPOSITORY_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')
+          docker manifest create \
+            ghcr.io/${{ env.REPOSITORY_OWNER }}/client-pilot:centos7 \
+            --amend ghcr.io/${{ env.REPOSITORY_OWNER }}/client-pilot:centos7-amd64 \
+            --amend ghcr.io/${{ env.REPOSITORY_OWNER }}/client-pilot:centos7-arm64 \
+            --amend ghcr.io/${{ env.REPOSITORY_OWNER }}/client-pilot:centos7-ppc64le
