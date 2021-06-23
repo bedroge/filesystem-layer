@@ -12,7 +12,8 @@ jobs:
       contents: read
     strategy:
       matrix:
-        platform: [amd64, arm64, ppc64le]
+        platform: [amd64, arm64]
+        #, ppc64le]
 
     steps:
       - name: Check out the repo
