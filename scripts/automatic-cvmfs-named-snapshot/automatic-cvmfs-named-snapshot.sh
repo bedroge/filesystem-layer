@@ -13,7 +13,10 @@
 
 # Function to check if the repository is currently in a transaction
 function check_transaction() {
-    if cvmfs_server transaction | grep -q "${cvmfs_repo}"; then
+    if cvmfs_server list | awk -v repo="${cvmfs_repo}" \
+        '$1 == repo && / - in transaction\)[[:space:]]*$/ { found=1 }
+         END { exit !found }'
+    then
         echo "Repository ${cvmfs_repo} is currently in a transaction."
         exit 1
     fi
